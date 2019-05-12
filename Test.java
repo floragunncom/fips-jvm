@@ -3,6 +3,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.security.Permission;
+import java.security.Policy;
+import java.security.ProtectionDomain;
 
 import javax.crypto.Cipher;
 import javax.net.ssl.HttpsURLConnection;
@@ -12,6 +15,25 @@ public class Test {
     public static void main(String[] args) {
         try {
             System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+
+            Policy.setPolicy(new Policy() {
+
+                @Override
+                public boolean implies(ProtectionDomain domain, Permission permission) {
+                    if(permission.getClass().getName().equals("org.bouncycastle.crypto.CryptoServicesPermission")) {
+                        if(permission.getActions().equals("[unapprovedModeEnabled]")) {
+                            System.out.println(permission);
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+                
+            });
+    
+            System.setSecurityManager(new SecurityManager());
+
+
             int maxKeyLen = Cipher.getMaxAllowedKeyLength("AES");
             System.out.println("MAX AES key len ok?: " + (maxKeyLen > 128));
 
