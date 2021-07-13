@@ -5,16 +5,12 @@
 #
 
 security.provider.1=org.bouncycastle.jcajce.provider.BouncyCastleFipsProvider
-security.provider.2=com.sun.net.ssl.internal.ssl.Provider BCFIPS
-security.provider.3=sun.security.provider.Sun
-
-security.provider.4=sun.security.rsa.SunRsaSign
-security.provider.5=sun.security.ec.SunEC
-security.provider.6=com.sun.crypto.provider.SunJCE
-security.provider.7=sun.security.jgss.SunProvider
-security.provider.8=com.sun.security.sasl.Provider
-security.provider.9=org.jcp.xml.dsig.internal.dom.XMLDSigRI
-security.provider.10=sun.security.smartcardio.SunPCSC
+#security.provider.2=org.bouncycastle.jsse.provider.BouncyCastleJsseProvider fips:BCFIPS
+#security.provider.2=com.sun.net.ssl.internal.ssl.Provider BCFIPS
+security.provider.2=sun.security.provider.Sun
+security.provider.3=com.sun.net.ssl.internal.ssl.Provider BCFIPS
+#security.provider.3=org.bouncycastle.jsse.provider.BouncyCastleJsseProvider fips:BCFIPS
+#security.provider.3=sun.security.provider.Sun
 
 #
 # Sun Provider SecureRandom seed source.
@@ -227,8 +223,8 @@ security.overridePropertiesFile=true
 # Determines the default key and trust manager factory algorithms for
 # the javax.net.ssl package.
 #
-ssl.KeyManagerFactory.algorithm=SunX509
-ssl.TrustManagerFactory.algorithm=PKIX
+#ssl.KeyManagerFactory.algorithm=SunX509
+#ssl.TrustManagerFactory.algorithm=PKIX
 
 #
 # The Java-level namelookup cache policy for successful lookups:
